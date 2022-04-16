@@ -7,12 +7,11 @@ const Header = () => {
     const [open, setOpen] = useState(false);
 
     return (
-        <div>
-            <nav className="dark:bg-gray-800 shadow " style={{ backgroundColor: '#91D0CC' }}>
-                <div className="max-w-7xl mx-auto px-8">
+            <nav style={{ backgroundColor: '#91D0CC' }}>
+            <div className="max-w-7xl mx-auto px-8">
                         <div className="flex items-center justify-between h-20">
                             <Link className="flex-shrink-0" to="/">
-                                <h3 className='text-white font-bold text-4xl'>BWell Psychotherapy</h3>
+                                <h3 className='text-white font-bold text-3xl '>BWell Psychotherapy</h3>
                             </Link>
                             <div className="hidden md:block">
                                 <div className="ml-10 flex items-baseline space-x-4">
@@ -75,7 +74,6 @@ const Header = () => {
                     </div>
                 }
             </nav>
-        </div>
     );
 };
 
