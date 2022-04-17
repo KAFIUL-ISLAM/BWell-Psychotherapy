@@ -7,9 +7,11 @@ import Header from '../../CommonComp/Header/Header';
 import auth from '../../../firebase.init';
 
 const Register = () => {
+    
+    const { register, handleSubmit } = useForm();
 
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
-    const [sendEmailVerification, sending, sendEmailerror] = useSendEmailVerification(auth);
+    const [sendEmailVerification, sending, sendEmailError] = useSendEmailVerification(auth);
     const [
         createUserWithEmailAndPassword,
         user,
@@ -17,18 +19,10 @@ const Register = () => {
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
 
-    if (error || updateError || sendEmailError) {
-        return (
-            <div>
-                <p>Error: {error.message}</p>
-            </div>
-        );
-    }
     if (loading || updating || sending) {
         return <p>Loading...</p>;
     }
 
-    const { register, handleSubmit } = useForm();
     const onSubmit = async e => {
         const email = e.email;
         const password = e.password;
@@ -46,11 +40,17 @@ const Register = () => {
                 <div className='md:w-1/2 mx-auto bg-[#91D0CC] rounded-lg shadow-2xl px-24 py-24 md:py-24'>
                     <form onSubmit={handleSubmit(onSubmit)} className=' flex flex-col gap-y-4 '>
                         <h1 className='text-center mb-5 text-4xl text-white font-bold'>Please Register</h1>
-                        <input defaultValue={user?.email} {...register("name")} placeholder='Your name' className='rounded py-2 font-medium font-sans' required />
-                        <input defaultValue={user?.userName} {...register("email")} placeholder='Email' className='rounded py-2 font-medium font-sans' required />
+                        <input {...register("name")} placeholder='Your name' className='rounded py-2 font-medium font-sans' required />
+                        <input {...register("email")} placeholder='Email' className='rounded py-2 font-medium font-sans' required />
                         <input type='password' {...register("password")} placeholder='Password' className='rounded py-2 font-medium font-sans' required />
                         <input type='password' {...register("confirmPassword")} placeholder='Confirm Password' className='rounded py-2 font-medium font-sans' required />
                         <p className='text-white'>Already registered? <Link className='underline font-medium' to={'/login'}>Login here</Link></p>
+                        { 
+                            error || updateError || sendEmailError ? <div className='text-red-600'>
+                                <p>Error: {error.message}</p>
+                            </div> : ''
+                    
+                        }
                         <button type="submit" className='text-[#91D0CC] bg-white hover:text-white hover:bg-[#91D0CC]
                         border-2 text-xl font-bold rounded-lg py-1'>Register</button>
                         <ToastContainer />
