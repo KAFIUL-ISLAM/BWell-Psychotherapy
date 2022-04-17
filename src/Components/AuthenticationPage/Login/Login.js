@@ -1,17 +1,45 @@
 import React from 'react';
+import { useSignInWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import auth from '../../../firebase.init';
 import Header from '../../CommonComp/Header/Header';
 
 const Login = () => {
 
-    const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = () => {
+    const navigate = useNavigate();
+
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
+
+    const { register, handleSubmit } = useForm();
+    const onSubmit = async e => {
+        const email = e.email;
+        const password = e.password;
+        signInWithEmailAndPassword(email, password);
         toast("Login Successful");
     };
-    const user = true;
+
+    if (error) {
+        return (
+            <div>
+                <p>Error: {error.message}</p>
+            </div>
+        );
+    }
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+    if (user) {
+        navigate('/');
+        console.log('logged in')
+    }
 
     return (
         <div>
@@ -20,7 +48,7 @@ const Login = () => {
                 <div className='md:w-1/2 mx-auto bg-[#91D0CC] rounded-lg shadow-2xl px-24 py-24 md:py-24'>
                     <form onSubmit={handleSubmit(onSubmit)} className=' flex flex-col gap-y-4 '>
                         <h1 className='text-center mb-5 text-4xl text-white font-bold'>Please Login</h1>
-                        <input defaultValue={user?.userName} {...register("email")} placeholder='Email' className='rounded py-2 font-medium font-sans' required />
+                        <input {...register("email")} placeholder='Email' className='rounded py-2 font-medium font-sans' required />
                         <input type='password' {...register("password")} placeholder='Password' className='rounded py-2 font-medium font-sans' required />
                         <p className='text-white'>New to here? <Link className='underline font-medium' to={'/register'}>Create a account</Link></p>
                         <button type="submit" className='text-[#91D0CC] bg-white hover:text-white hover:bg-[#91D0CC]

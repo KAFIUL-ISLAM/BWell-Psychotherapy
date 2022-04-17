@@ -1,16 +1,20 @@
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import auth from '../../../firebase.init';
 import Header from '../../CommonComp/Header/Header';
 
 const Checkout = () => {
+
+    const [user] = useAuthState(auth);
+    console.log(user);
 
     const { register, formState: { errors }, handleSubmit } = useForm();
     const onSubmit = () => {
         toast("Your Booking request is successfully sent!");
     };
-    const user = true;
 
     return (
         <div>
@@ -26,7 +30,7 @@ const Checkout = () => {
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className='bg-[#D9BE93] px-24 py-24 md:py-48 flex flex-col gap-y-4'>
                     <h1 className='text-center mb-5 text-2xl text-white font-medium'>Enter Additional Information to checkout</h1>
-                    <input defaultValue={user?.userName} {...register("name")} placeholder='Your name' className='rounded py-2 font-medium font-sans' required />
+                    <input defaultValue={user?.displayName} {...register("name")} placeholder='Your name' className='rounded py-2 font-medium font-sans' required />
                     <input type='number' {...register("phoneNumber")} placeholder='Phone number' className='rounded py-2 font-medium font-sans' required />
                     <input type="number" {...register("age", { min: 18, max: 99 })} placeholder='Your age' className='rounded py-2 font-medium font-sans' required />
                     {errors.age && "Your age should be 18 to 99"}

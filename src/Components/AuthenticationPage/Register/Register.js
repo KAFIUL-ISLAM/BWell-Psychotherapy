@@ -1,16 +1,43 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useCreateUserWithEmailAndPassword, useSendEmailVerification, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import Header from '../../CommonComp/Header/Header';
+import auth from '../../../firebase.init';
 
 const Register = () => {
 
-    const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = () => {
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    const [sendEmailVerification, sending, sendEmailerror] = useSendEmailVerification(auth);
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth);
+
+    if (error || updateError || sendEmailError) {
+        return (
+            <div>
+                <p>Error: {error.message}</p>
+            </div>
+        );
+    }
+    if (loading || updating || sending) {
+        return <p>Loading...</p>;
+    }
+
+    const { register, handleSubmit } = useForm();
+    const onSubmit = async e => {
+        const email = e.email;
+        const password = e.password;
+        const displayName = e.name;
+        await createUserWithEmailAndPassword(email, password);
+        await updateProfile({ displayName });
+        await sendEmailVerification();
         toast("Registration successful! Verification E-mail sent");
     };
-    const user = true;
 
     return (
         <div>
@@ -19,7 +46,7 @@ const Register = () => {
                 <div className='md:w-1/2 mx-auto bg-[#91D0CC] rounded-lg shadow-2xl px-24 py-24 md:py-24'>
                     <form onSubmit={handleSubmit(onSubmit)} className=' flex flex-col gap-y-4 '>
                         <h1 className='text-center mb-5 text-4xl text-white font-bold'>Please Register</h1>
-                        <input defaultValue={user?.userName} {...register("name")} placeholder='Your name' className='rounded py-2 font-medium font-sans' required />
+                        <input defaultValue={user?.email} {...register("name")} placeholder='Your name' className='rounded py-2 font-medium font-sans' required />
                         <input defaultValue={user?.userName} {...register("email")} placeholder='Email' className='rounded py-2 font-medium font-sans' required />
                         <input type='password' {...register("password")} placeholder='Password' className='rounded py-2 font-medium font-sans' required />
                         <input type='password' {...register("confirmPassword")} placeholder='Confirm Password' className='rounded py-2 font-medium font-sans' required />
