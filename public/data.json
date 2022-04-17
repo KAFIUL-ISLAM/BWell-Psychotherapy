@@ -1,43 +1,43 @@
 [{
         "id": "625b1271520f8c97552a629e",
         "price": "$171.06",
-        "picture": "https://html.modernwebtemplates.com/psychologist/images/service-icons/mental.png",
-        "name": "Serrano Marshall",
-        "about": "Culpa eu aliqua ipsum eiusmod occaecat incididunt laborum tempor velit amet mollit exercitation amet reprehenderit."
+        "picture": "https://html.modernwebtemplates.com/psychologist/images/service-icons/relationship.png",
+        "name": "RELATIONSHIP",
+        "about": "A therapy that helps establish a more profound ground for healthy relationship."
     },
     {
         "id": "625b1271718c0e515b294ea3",
         "price": "$222.21",
         "picture": "https://html.modernwebtemplates.com/psychologist/images/service-icons/mental.png",
-        "name": "Suarez Dale",
-        "about": "Velit fugiat quis aliqua id cillum duis sunt exercitation nulla est consectetur anim."
+        "name": "MENTAL HEALTH",
+        "about": "Improve your focus, relieve stress and anxiety, and develop creativity."
     },
     {
         "id": "625b1271e44aacca2a11fde6",
         "price": "$342.53",
-        "picture": "https://html.modernwebtemplates.com/psychologist/images/service-icons/mental.png",
-        "name": "Bridget Whitfield",
-        "about": "Cillum consequat eiusmod ipsum fugiat."
+        "picture": "https://html.modernwebtemplates.com/psychologist/images/service-icons/feelings.png",
+        "name": "FEELINGS",
+        "about": "Achieve a better level of your well-being and the ability to manage feelings."
     },
     {
         "id": "625b1271bf3d101ba0797f9c",
         "price": "$399.52",
-        "picture": "https://html.modernwebtemplates.com/psychologist/images/service-icons/mental.png",
-        "name": "Araceli Gonzales",
-        "about": "Minim reprehenderit irure officia aute voluptate esse culpa duis sunt incididunt nostrud pariatur cillum duis."
+        "picture": "https://html.modernwebtemplates.com/psychologist/images/service-icons/conflicting.png",
+        "name": "CONFLICTING",
+        "about": "Invaluable insight into the knowledge of reducing conflict in relationship."
     },
     {
         "id": "625b1271093ff85af8e3475f",
         "price": "$171.97",
-        "picture": "https://html.modernwebtemplates.com/psychologist/images/service-icons/mental.png",
-        "name": "Bertie Cobb",
-        "about": "Nostrud magna sint tempor incididunt proident nisi commodo ut."
+        "picture": "https://html.modernwebtemplates.com/psychologist/images/service-icons/meditation.png",
+        "name": "MEDITATION",
+        "about": "Learn how to deal with difficult emotions and feelings by using healthy strategies."
     },
     {
         "id": "625b1271c7ea374e8840cbc0",
         "price": "$285.60",
-        "picture": "https://html.modernwebtemplates.com/psychologist/images/service-icons/mental.png",
-        "name": "Harvey Dalton",
-        "about": "In velit cillum eu eu deserunt culpa sunt aliqua amet veniam ea proident."
+        "picture": "https://html.modernwebtemplates.com/psychologist/images/service-icons/depression.png",
+        "name": "DEPRESSION",
+        "about": "If your depression is keeping you from living your life don’t hesitate to seek help."
     }
 ]

@@ -5,6 +5,7 @@ import Blogs from './Components/Blogs/Blogs';
 import AboutMe from './Components/AboutMe/AboutMe';
 import Login from './Components/AuthenticationPage/Login/Login';
 import Register from './Components/AuthenticationPage/Register/Register';
+import Checkout from './Components/CheckoutPage/Checkout/Checkout';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/about' element={<AboutMe></AboutMe>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
+        <Route path='/checkout' element={<Checkout></Checkout>}></Route>
         <Route path='*' element={<h1 className='text-4xl'>404 Not Found</h1>}></Route>
       </Routes>
     </div>
