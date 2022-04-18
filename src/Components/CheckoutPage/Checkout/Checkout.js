@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import auth from '../../../firebase.init';
-import useServices from '../../../Hooks/useServices';
 import Footer from '../../CommonComp/Footer/Footer';
 import Header from '../../CommonComp/Header/Header';
 
