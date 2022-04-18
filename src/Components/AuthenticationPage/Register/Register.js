@@ -7,9 +7,8 @@ import Header from '../../CommonComp/Header/Header';
 import auth from '../../../firebase.init';
 
 const Register = () => {
-    
-    const { register, handleSubmit } = useForm();
 
+    const { register, handleSubmit } = useForm();
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
     const [sendEmailVerification, sending, sendEmailError] = useSendEmailVerification(auth);
     const [
@@ -29,9 +28,14 @@ const Register = () => {
         const displayName = e.name;
         await createUserWithEmailAndPassword(email, password);
         await updateProfile({ displayName });
-        await sendEmailVerification();
-        toast("Registration successful! Verification E-mail sent");
+        sendEmail();
     };
+
+    const sendEmail = async () => {
+         await sendEmailVerification()
+        .then(() => toast('registered')) ;
+        
+    }
 
     return (
         <div>
@@ -45,11 +49,11 @@ const Register = () => {
                         <input type='password' {...register("password")} placeholder='Password' className='rounded py-2 font-medium font-sans' required />
                         <input type='password' {...register("confirmPassword")} placeholder='Confirm Password' className='rounded py-2 font-medium font-sans' required />
                         <p className='text-white'>Already registered? <Link className='underline font-medium' to={'/login'}>Login here</Link></p>
-                        { 
+                        {
                             error || updateError || sendEmailError ? <div className='text-red-600'>
                                 <p>Error: {error.message}</p>
                             </div> : ''
-                    
+
                         }
                         <button type="submit" className='text-[#91D0CC] bg-white hover:text-white hover:bg-[#91D0CC]
                         border-2 text-xl font-bold rounded-lg py-1'>Register</button>

@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import auth from '../../../firebase.init';
 import Header from '../../CommonComp/Header/Header';
+import { ServiceContext } from '../../Homepage/Service/Service';
 
 const Checkout = () => {
 
     const [user] = useAuthState(auth);
-    console.log(user);
+    const service = useContext(ServiceContext);
+    console.log(service);
 
     const { register, formState: { errors }, handleSubmit } = useForm();
     const onSubmit = () => {

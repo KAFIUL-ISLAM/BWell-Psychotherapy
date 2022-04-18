@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSignInWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import React, { useState } from 'react';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -9,8 +9,11 @@ import Header from '../../CommonComp/Header/Header';
 
 const Login = () => {
 
+    const [email, setEmail] = useState('');
     const navigate = useNavigate();
-
+    const [sendPasswordResetEmail, sending, resetPasswordError] = useSendPasswordResetEmail(
+        auth
+    );
     const [
         signInWithEmailAndPassword,
         user,
@@ -19,11 +22,11 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
 
     const { register, handleSubmit } = useForm();
-    const onSubmit = async e => {
+    const onSubmit = e => {
         const email = e.email;
         const password = e.password;
         signInWithEmailAndPassword(email, password);
-        toast("Login Successful");
+
     };
 
     if (error) {
@@ -33,32 +36,40 @@ const Login = () => {
             </div>
         );
     }
-    if (loading) {
+    if (loading || sending) {
         return <p>Loading...</p>;
     }
     if (user) {
+        toast("Login Successful");
         navigate('/');
         console.log('logged in')
     }
+    console.log(resetPasswordError?.message)
 
     return (
         <div>
-            <Header></Header>
+            <Header><ToastContainer /></Header>
             <div className='md:py-24'>
                 <div className='md:w-1/2 mx-auto bg-[#91D0CC] rounded-lg shadow-2xl px-24 py-24 md:py-24'>
                     <form onSubmit={handleSubmit(onSubmit)} className=' flex flex-col gap-y-4 '>
                         <h1 className='text-center mb-5 text-4xl text-white font-bold'>Please Login</h1>
-                        <input {...register("email")} placeholder='Email' className='rounded py-2 font-medium font-sans' required />
+                        <input {...register("email")} placeholder='Email' className='rounded py-2 font-medium font-sans' onChange={(e) => setEmail(e.target.value)} required />
                         <input type='password' {...register("password")} placeholder='Password' className='rounded py-2 font-medium font-sans' required />
                         <p className='text-white'>New to here? <Link className='underline font-medium' to={'/register'}>Create a account</Link></p>
+                        <p className='text-white'>Forgot password? <span onClick={async () => {
+                            resetPasswordError ?
+                                alert(resetPasswordError.message)
+                                :
+                                await sendPasswordResetEmail(email)
+                                    .then(() => alert('Sent email'))
+                        }} className='underline font-medium'>Reset now</span></p>
                         <button type="submit" className='text-[#91D0CC] bg-white hover:text-white hover:bg-[#91D0CC]
                         border-2 text-xl font-bold rounded-lg py-1'>Login</button>
-                        <ToastContainer />
                     </form>
                     <div className='flex gap-4 items-center font-bold'>
                         <hr className='w-1/2' />
                         <p className='text-white'>or</p>
-                        <hr className='w-1/2'/>
+                        <hr className='w-1/2' />
                     </div>
                     <button className='mt-4 text-[#91D0CC] w-full bg-white text-xl font-medium py-1 flex justify-center items-center gap-8'>
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
