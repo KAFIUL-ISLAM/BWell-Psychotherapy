@@ -1,18 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import auth from '../../../firebase.init';
+import useServices from '../../../Hooks/useServices';
 import Header from '../../CommonComp/Header/Header';
-import Spinner from '../../CommonComp/Spinner/Spinner';
-import { ServiceContext } from '../../Homepage/Service/Service';
 
 const Checkout = () => {
 
     const [user] = useAuthState(auth);
-    const service = useContext(ServiceContext);
-    console.log(service);
+
+    const { packageId } = useParams();
+    
 
     const { register, formState: { errors }, handleSubmit } = useForm();
     const onSubmit = () => {
@@ -23,7 +24,7 @@ const Checkout = () => {
         <div>
             <Header></Header>
             <div className='grid md:grid-cols-2'>
-                <div className='bg-[#CAD5E2] px-24 py-24 md:py-48 flex justify-center items-center'> 
+                <div className='bg-[#CAD5E2] px-24 py-24 md:py-48 flex justify-center items-center'>
                     <div className='bg-[#D9BE93] p-12 text-white font-medium text-xl rounded-lg shadow-2xl'>
                         <h1>Package Information</h1>
                         <p>Name:</p>

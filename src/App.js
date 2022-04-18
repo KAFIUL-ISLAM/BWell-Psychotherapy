@@ -16,7 +16,7 @@ function App() {
         <Route path='/about' element={<AboutMe></AboutMe>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
-        <Route path='/checkout' element={<Checkout></Checkout>}></Route>
+        <Route path='/checkout/:packageId' element={<Checkout></Checkout>}></Route>
         <Route path='*' element={<h1 className='text-4xl'>404 Not Found</h1>}></Route>
       </Routes>
     </div>
