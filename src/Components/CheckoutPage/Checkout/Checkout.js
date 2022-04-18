@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import auth from '../../../firebase.init';
 import Header from '../../CommonComp/Header/Header';
+import Spinner from '../../CommonComp/Spinner/Spinner';
 import { ServiceContext } from '../../Homepage/Service/Service';
 
 const Checkout = () => {

@@ -1,68 +1,83 @@
-import React, { useState } from 'react';
-import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import auth from '../../../firebase.init';
 import Header from '../../CommonComp/Header/Header';
+import Spinner from '../../CommonComp/Spinner/Spinner';
 
 const Login = () => {
 
-    const [email, setEmail] = useState('');
+    const emailRef = useRef('');
+    const passwordRef = useRef('');
     const navigate = useNavigate();
-    const [sendPasswordResetEmail, sending, resetPasswordError] = useSendPasswordResetEmail(
-        auth
-    );
+
+    const [sendPasswordResetEmail, sending, resetPasswordError] = useSendPasswordResetEmail(auth);
+    const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [
         signInWithEmailAndPassword,
         user,
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
+   
+    useEffect(() => {
+        if (user || googleUser) {
+            navigate('/')
+        }
+    }, [user, googleUser])
 
-    const { register, handleSubmit } = useForm();
-    const onSubmit = e => {
-        const email = e.email;
-        const password = e.password;
+    const handleSubmit = e => {
+        e.preventDefault();
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
         signInWithEmailAndPassword(email, password);
-
     };
+    const handleGoogleSignIn = () => {
+        signInWithGoogle();
+    }
+    const handleResetEmail = async () => {
+        const email = emailRef.current.value;
+        if (email) {
+            await sendPasswordResetEmail(email)
+            toast('Reset Password e-mail sent successful');
+        }
+        else {
+            toast('Please enter your Email')
+        }
+    }
 
-    if (error) {
-        return (
-            <div>
-                <p>Error: {error.message}</p>
-            </div>
-        );
+    if (loading || sending || googleLoading) {
+        return <Spinner></Spinner>;
     }
-    if (loading || sending) {
-        return <p>Loading...</p>;
+
+    if (resetPasswordError) {
+        toast(resetPasswordError.message);
     }
-    if (user) {
-        toast("Login Successful");
-        navigate('/');
-        console.log('logged in')
-    }
-    console.log(resetPasswordError?.message)
 
     return (
         <div>
             <Header><ToastContainer /></Header>
             <div className='md:py-24'>
                 <div className='md:w-1/2 mx-auto bg-[#91D0CC] rounded-lg shadow-2xl px-24 py-24 md:py-24'>
-                    <form onSubmit={handleSubmit(onSubmit)} className=' flex flex-col gap-y-4 '>
+                    <form onSubmit={handleSubmit} className=' flex flex-col gap-y-4 '>
                         <h1 className='text-center mb-5 text-4xl text-white font-bold'>Please Login</h1>
-                        <input {...register("email")} placeholder='Email' className='rounded py-2 font-medium font-sans' onChange={(e) => setEmail(e.target.value)} required />
-                        <input type='password' {...register("password")} placeholder='Password' className='rounded py-2 font-medium font-sans' required />
+                        <input name='email' placeholder='Email' className='rounded py-2 font-medium font-sans' ref={emailRef} required />
+                        <input type='password' name='password' ref={passwordRef} placeholder='Password' className='rounded py-2 font-medium font-sans' required />
                         <p className='text-white'>New to here? <Link className='underline font-medium' to={'/register'}>Create a account</Link></p>
-                        <p className='text-white'>Forgot password? <span onClick={async () => {
-                            resetPasswordError ?
-                                alert(resetPasswordError.message)
-                                :
-                                await sendPasswordResetEmail(email)
-                                    .then(() => alert('Sent email'))
-                        }} className='underline font-medium'>Reset now</span></p>
+                        <p className='text-white'>Forgot password? <button
+                        type='button'    onClick={handleResetEmail} className='underline font-medium'>Reset now</button></p>
+                        {
+                            error && <div className='text-red-600'>
+                                <p>Error: {error.message}</p>
+                            </div>
+                        }
+                        {
+                            googleError && <div className='text-red-600'>
+                                <p>Error: {googleError.message}</p>
+                            </div>
+                        }
                         <button type="submit" className='text-[#91D0CC] bg-white hover:text-white hover:bg-[#91D0CC]
                         border-2 text-xl font-bold rounded-lg py-1'>Login</button>
                     </form>
@@ -71,7 +86,7 @@ const Login = () => {
                         <p className='text-white'>or</p>
                         <hr className='w-1/2' />
                     </div>
-                    <button className='mt-4 text-[#91D0CC] w-full bg-white text-xl font-medium py-1 flex justify-center items-center gap-8'>
+                    <button onClick={handleGoogleSignIn} className='mt-4 text-[#91D0CC] w-full bg-white text-xl font-medium py-1 flex justify-center items-center gap-8'>
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                             width="40" height="40"
                             viewBox="0 0 48 48"
@@ -82,5 +97,6 @@ const Login = () => {
         </div>
     );
 };
+
 
 export default Login;
