@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div className='px-24 pb-8 pt-24 bg-[#a29bfe] text-white'>
+        <div className='px-24 pb-4 pt-24 bg-[#a29bfe] text-white'>
             <div className='grid md:grid-cols-4 grid-cols-1 gap-y-12 gap-x-12 content-evenly '>
                 <div className=''>
                     <h1 className='font-bold text-3xl font-mono mb-4'>BWell Psychotherapy</h1>
