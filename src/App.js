@@ -7,6 +7,7 @@ import Login from './Components/AuthenticationPage/Login/Login';
 import Register from './Components/AuthenticationPage/Register/Register';
 import Checkout from './Components/CheckoutPage/Checkout/Checkout';
 import RequiredAuth from './Components/RequiredAuth/RequiredAuth';
+import NotFound from './Components/NotFound/NotFound';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
             <Checkout></Checkout>
           </RequiredAuth>
         }></Route>
-        <Route path='*' element={<h1 className='text-4xl'>404 Not Found</h1>}></Route>
+        <Route path='*' element={<NotFound></NotFound>}></Route>
       </Routes>
     </div>
   );
