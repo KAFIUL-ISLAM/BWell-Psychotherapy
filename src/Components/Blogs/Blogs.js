@@ -43,19 +43,27 @@ const Blogs = () => {
                     </div>
                 </div>
                 <div className='text-left mt-10 mb-16 mx-24 font-serif text-slate-800'>
-                    <h4 className='text-lg font-semibold'><span className='text-2xl text-slate-500 font-bold'>Q: </span>What is Context API?</h4>
+                    <h4 className='text-lg font-semibold'><span className='text-2xl text-slate-500 font-bold'>Q: </span> What other services does firebase provide other than authentication?</h4>
                     <br />
                     <p>
                         <span className='text-2xl text-slate-500 font-bold'>Ans: </span>
-                        Normally in React, We passe data from parent element to down element by all level via props. It is inconvenient method for certain props that are required many components in react app. Here we can use Context. It pass values between components without passing props to every level of child components. Context has ability to communicate and share data at different level.
+                        There is a lots of features in firebase. some of them are: Cloud Messaging,
+                        Test Lab,                        Hosting,
+                        Remote Configuration,
+                        Dynamic Links,
+                        Crash Reporting,
+                        Real-time Database,
+                        Storage,
+                        App Indexing etc.
+                        Similar to authentication, there is a another popular feature in Firebase is Hosting. Firebase Hosting allows you to set-up a single-page, a mobile landing page, web page or progressive web page with ease. It also helps to deliver the content rapidly anywhere. The developers can deploy the web apps as well as static content at CDN (Content Delivery Network).
                     </p>
                 </div>
                 <div className='text-left mt-10 mb-16 mx-24 font-serif text-slate-800'>
-                    <h4 className='text-lg font-semibold'><span className='text-2xl text-slate-500 font-bold'>Q: </span>What is Semantic Tag?</h4>
+                    <h4 className='text-lg font-semibold'><span className='text-2xl text-slate-500 font-bold'>Q: </span>Why are you using Firebase? What other options do you have to implement authentication?v</h4>
                     <br />
                     <p>
                         <span className='text-2xl text-slate-500 font-bold'>Ans: </span>
-                        Semantic Tag is basically some HTML element that clearly describe their meaning. It can accurately describe the purpose of  the element and type of content inside it. Semantic elements makes code easy to read and understand to human. It increases accessibility of code. So it offers a better user experience than old HTML elements.
+                        I'm using Firebase because it is one of the most popular authentication system. It is a product of Google. High security and easy to implement is the reason for using Firebase. some alternative of Firebase authentication is : Auth0, Passport, KeyCloak, Amazon Cognito, Okta etc.
                     </p>
                 </div>
             </div>
