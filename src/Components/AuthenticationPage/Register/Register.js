@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../CommonComp/Header/Header';
 import auth from '../../../firebase.init';
 import Spinner from '../../CommonComp/Spinner/Spinner';
@@ -9,6 +9,8 @@ import { toast, ToastContainer } from 'react-toastify';
 const Register = () => {
     
     const navigate = useNavigate();
+    const location = useLocation();
+    const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [updateProfile, updating] = useUpdateProfile(auth);
     const [
         createUserWithEmailAndPassword,
@@ -16,12 +18,14 @@ const Register = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
-    const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+    
     useEffect(() => {
+        let from = location.state?.from?.pathname || "/";
         if (user || googleUser) {
-            navigate('/')
+            navigate(from, { replace: true })
         }
     }, [user, googleUser])
+
 
     const handleSubmit = async e => {
         e.preventDefault();

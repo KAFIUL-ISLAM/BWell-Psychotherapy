@@ -6,6 +6,7 @@ import AboutMe from './Components/AboutMe/AboutMe';
 import Login from './Components/AuthenticationPage/Login/Login';
 import Register from './Components/AuthenticationPage/Register/Register';
 import Checkout from './Components/CheckoutPage/Checkout/Checkout';
+import RequiredAuth from './Components/RequiredAuth/RequiredAuth';
 
 function App() {
   return (
@@ -16,7 +17,11 @@ function App() {
         <Route path='/about' element={<AboutMe></AboutMe>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
-        <Route path='/checkout/:packageId' element={<Checkout></Checkout>}></Route>
+        <Route path='/checkout/:packageId' element={
+          <RequiredAuth>
+            <Checkout></Checkout>
+          </RequiredAuth>
+        }></Route>
         <Route path='*' element={<h1 className='text-4xl'>404 Not Found</h1>}></Route>
       </Routes>
     </div>
