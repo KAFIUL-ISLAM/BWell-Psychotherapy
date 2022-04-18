@@ -5,6 +5,7 @@ import Header from '../../CommonComp/Header/Header';
 import auth from '../../../firebase.init';
 import Spinner from '../../CommonComp/Spinner/Spinner';
 import { toast, ToastContainer } from 'react-toastify';
+import Footer from '../../CommonComp/Footer/Footer';
 
 const Register = () => {
     
@@ -24,7 +25,7 @@ const Register = () => {
         if (user || googleUser) {
             navigate(from, { replace: true })
         }
-    }, [user, googleUser])
+    })
 
 
     const handleSubmit = async e => {
@@ -89,6 +90,7 @@ const Register = () => {
                         Sign-in with Google</button>
                 </div>
             </div>
+            <Footer></Footer>
         </div>
     );
 };

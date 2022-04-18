@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import auth from '../../../firebase.init';
+import Footer from '../../CommonComp/Footer/Footer';
 import Header from '../../CommonComp/Header/Header';
 import Spinner from '../../CommonComp/Spinner/Spinner';
 
@@ -28,7 +29,7 @@ const Login = () => {
         if (user || googleUser) {
             navigate(from, { replace: true })
         }
-    }, [user, googleUser])
+    })
 
 
     const handleSubmit = e => {
@@ -97,6 +98,7 @@ const Login = () => {
                         Sign-in with Google</button>
                 </div>
             </div>
+            <Footer></Footer>
         </div>
     );
 };

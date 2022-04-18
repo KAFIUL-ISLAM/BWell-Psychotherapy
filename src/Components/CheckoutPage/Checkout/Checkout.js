@@ -1,19 +1,16 @@
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import auth from '../../../firebase.init';
 import useServices from '../../../Hooks/useServices';
+import Footer from '../../CommonComp/Footer/Footer';
 import Header from '../../CommonComp/Header/Header';
 
 const Checkout = () => {
 
-    const [user] = useAuthState(auth);
-
-    const { packageId } = useParams();
-    
+    const [user] = useAuthState(auth); 
 
     const { register, formState: { errors }, handleSubmit } = useForm();
     const onSubmit = () => {
@@ -25,11 +22,8 @@ const Checkout = () => {
             <Header></Header>
             <div className='grid md:grid-cols-2'>
                 <div className='bg-[#CAD5E2] px-24 py-24 md:py-48 flex justify-center items-center'>
-                    <div className='bg-[#D9BE93] p-12 text-white font-medium text-xl rounded-lg shadow-2xl'>
-                        <h1>Package Information</h1>
-                        <p>Name:</p>
-                        <p>Details:</p>
-                        <p>Price:</p>
+                    <div className='bg-[#D9BE93] p-12 text-white font-bold font-serif text-4xl rounded-lg shadow-2xl'>
+                       <h1>Thank you for choosing my service</h1>
                     </div>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className='bg-[#D9BE93] px-24 py-24 md:py-48 flex flex-col gap-y-4'>
@@ -50,6 +44,7 @@ const Checkout = () => {
                     <ToastContainer />
                 </form>
             </div>
+            <Footer></Footer>
         </div>
     );
 };

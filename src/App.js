@@ -17,7 +17,7 @@ function App() {
         <Route path='/about' element={<AboutMe></AboutMe>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
-        <Route path='/checkout/:packageId' element={
+        <Route path='/checkout' element={
           <RequiredAuth>
             <Checkout></Checkout>
           </RequiredAuth>
